@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactElement } from "react";
 import { HeroScene } from "@/components/HeroScene";
 import { Nav } from "@/components/Nav";
 import { Reveal } from "@/components/Reveal";
@@ -27,7 +28,7 @@ const processCards = [
 
 function Icon({ name }: { name: string }) {
   const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  const map: Record<string, JSX.Element> = {
+  const map: Record<string, ReactElement> = {
     shield: <svg {...common}><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/></svg>,
     wallet: <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h2"/></svg>,
     upload: <svg {...common}><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>,
@@ -39,7 +40,7 @@ function Icon({ name }: { name: string }) {
 }
 
 const launchFeats = [".in Domain Registration", "Web Hosting", "Professional Email", "Basic SSL Certificate", "Start-Up Website", "Complimentary Logo"];
-const launchFound = [
+const launchFound: [string, string][] = [
   ["Professional Domain-Based Email", "Build trust with clients using an official email address linked to your domain name."],
   ["Secure Domain Ownership", "Domain registered under your ownership — full control and your digital identity safeguarded."],
   ["Online Presence on Google", "When potential clients search for your name, they'll find your website displaying essential details."],
@@ -47,7 +48,7 @@ const launchFound = [
 ];
 
 const growFeats = ["Everything in Start-Up", "Custom Business Website", "CRM Integration", "Billing Software", "Google Analytics", "WhatsApp Enquiry Button", "SEO-Ready Structure", "Mobile Optimised"];
-const growFound = [
+const growFound: [string, string][] = [
   ["Built Around Your Brand", "Custom-designed pages that reflect your business identity, products, and services precisely."],
   ["CRM — Manage Your Leads", "Track contacts, deals, and follow-ups from one place. Never lose a client opportunity again."],
   ["Billing & Invoicing, Simplified", "Send quotes, invoices, and payment links directly from your business platform."],
@@ -55,7 +56,7 @@ const growFound = [
 ];
 
 const scaleFeats = ["Everything in Business", "AI Chat on Website", "WhatsApp AI Integration", "Analytics Dashboard", "Automated Lead Capture", "24/7 AI Customer Response", "Custom AI Model Training", "Monthly Performance Reports"];
-const scaleFound = [
+const scaleFound: [string, string][] = [
   ["AI Chat — Always On", "An AI assistant trained on your business responds to enquiries instantly, day and night."],
   ["WhatsApp Business AI", "Automate responses, bookings, and lead qualification on WhatsApp — fully hands-free."],
   ["Business Intelligence Dashboard", "See who's visiting, what they're asking, and where leads come from — in one clear view."],
