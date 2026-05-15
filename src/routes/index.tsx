@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactElement } from "react";
-import { HeroScene } from "@/components/HeroScene";
 import { Nav } from "@/components/Nav";
 import { Reveal } from "@/components/Reveal";
 import logo from "@/assets/logo.png";
@@ -25,19 +24,6 @@ const processCards = [
   { title: "Website Delivery", items: ["Your website will be ready within 10 working days."], icon: "rocket" },
   { title: "Source Files", items: ["Complete source files provided once your website goes live."], icon: "code" },
 ];
-
-function Icon({ name }: { name: string }) {
-  const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  const map: Record<string, ReactElement> = {
-    shield: <svg {...common}><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/></svg>,
-    wallet: <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h2"/></svg>,
-    upload: <svg {...common}><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>,
-    layout: <svg {...common}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>,
-    rocket: <svg {...common}><path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M5 17c-1 2-1 4-1 4s2 0 4-1"/><path d="M19 5c1 4-1 9-5 13"/></svg>,
-    code: <svg {...common}><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg>,
-  };
-  return map[name];
-}
 
 const launchFeats = [".in Domain Registration", "Web Hosting", "Professional Email", "Basic SSL Certificate", "Start-Up Website", "Complimentary Logo"];
 const launchFound: [string, string][] = [
@@ -118,6 +104,40 @@ function PackageBlock({
   );
 }
 
+function Icon({ name }: { name: string }) {
+  const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const map: Record<string, ReactElement> = {
+    shield: <svg {...common}><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/></svg>,
+    wallet: <svg {...common}><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h2"/></svg>,
+    upload: <svg {...common}><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg>,
+    layout: <svg {...common}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>,
+    rocket: <svg {...common}><path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M5 17c-1 2-1 4-1 4s2 0 4-1"/><path d="M19 5c1 4-1 9-5 13"/></svg>,
+    code: <svg {...common}><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg>,
+  };
+  return map[name];
+}
+
+const pricing = [
+  {
+    id: "launch",
+    audience: "For Start-Up Companies",
+    price: "₹3,500",
+    popular: false,
+  },
+  {
+    id: "grow",
+    audience: "For Established Companies",
+    price: "₹8,500",
+    popular: true,
+  },
+  {
+    id: "scale",
+    audience: "For Companies Scaling with AI",
+    price: "₹12,500",
+    popular: false,
+  },
+];
+
 function Index() {
   return (
     <div id="top">
@@ -145,10 +165,47 @@ function Index() {
             <span className="pill">Honest pricing</span>
           </div>
         </div>
-        <div className="animate-fade" style={{ animationDelay: ".5s" }}>
-          <HeroScene />
-        </div>
       </header>
+
+      {/* PRICING */}
+      <section id="packages" className="price-section">
+        <Reveal>
+          <span className="section-tag">Pricing</span>
+          <h2 className="section-headline">Simple pricing for every stage.</h2>
+          <p className="section-sub mx-auto">Choose the plan that fits your business. No hidden fees, no surprises.</p>
+        </Reveal>
+        <div className="price-grid">
+          {pricing.map((p) => (
+            <Reveal key={p.id}>
+              <div className={`price-card${p.popular ? " price-popular" : ""}`}>
+                {p.popular && <span className="price-badge">Most Popular</span>}
+                <div className="price-audience">{p.audience}</div>
+                <div className="price-amount">
+                  {p.price}
+                  <span className="price-period">/month</span>
+                </div>
+                <a href={`#${p.id}-detail`} className="price-cta">View Plan</a>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <div id="launch-detail">
+        <PackageBlock variant="launch" num="01" badge="Launch Stage" name={"All-Inclusive\nStart-Up Package"} price="₹3,500" note="One-time payment"
+          desc="Not ready for a full-scale business website? Get a professional email with your own domain — plus a clean startup website to establish your presence from day one."
+          feats={launchFeats} found={launchFound} />
+      </div>
+      <div id="grow-detail">
+        <PackageBlock variant="grow" num="02" badge="Grow Stage" name={"Business\nCustom Package"} price="₹8,500" note="One-time payment"
+          desc="Your business is unique — your website should be too. A fully custom-built site with CRM and billing tools to manage leads, send invoices, and grow efficiently."
+          feats={growFeats} found={growFound} />
+      </div>
+      <div id="scale-detail">
+        <PackageBlock variant="scale" num="03" badge="Scale Stage · AI" name={"Fully AI-Powered\nBusiness Model"} price="₹12,500" note="One-time payment"
+          desc="The future of business is AI-driven. Automate customer interactions, capture leads 24/7, and make data-backed decisions — all integrated into your business model."
+          feats={scaleFeats} found={scaleFound} />
+      </div>
 
       {/* PROCESS */}
       <section id="process" className="px-[5%] py-24 bg-white">
@@ -169,39 +226,6 @@ function Index() {
           ))}
         </div>
       </section>
-
-      {/* JOURNEY HEADER */}
-      <section id="packages" className="text-center pt-24 px-[5%]" style={{ background: "#f4f7fb" }}>
-        <Reveal>
-          <span className="section-tag">Your business journey</span>
-          <h2 className="section-headline">Three stages. One journey.</h2>
-          <p className="section-sub mx-auto">Start where you are. Build what you need. Scale when you're ready.</p>
-        </Reveal>
-        <div className="tl-strip">
-          <a href="#launch" className="tl-node"><div className="tl-bubble sz1"><div className="tl-stage">Launch</div><div className="tl-amt">₹3,500</div></div><div className="tl-label">Start-Up</div></a>
-          <div className="tl-rule" />
-          <a href="#grow" className="tl-node"><div className="tl-bubble sz2"><div className="tl-stage">Grow</div><div className="tl-amt">₹8,500</div></div><div className="tl-label">Business</div></a>
-          <div className="tl-rule" />
-          <a href="#scale" className="tl-node"><div className="tl-bubble sz3"><div className="tl-stage">Scale</div><div className="tl-amt">₹12,500</div></div><div className="tl-label">AI Model</div></a>
-        </div>
-        <div className="h-24" />
-      </section>
-
-      <div id="launch">
-        <PackageBlock variant="launch" num="01" badge="Launch Stage" name={"All-Inclusive\nStart-Up Package"} price="₹3,500" note="One-time payment"
-          desc="Not ready for a full-scale business website? Get a professional email with your own domain — plus a clean startup website to establish your presence from day one."
-          feats={launchFeats} found={launchFound} />
-      </div>
-      <div id="grow">
-        <PackageBlock variant="grow" num="02" badge="Grow Stage" name={"Business\nCustom Package"} price="₹8,500" note="One-time payment"
-          desc="Your business is unique — your website should be too. A fully custom-built site with CRM and billing tools to manage leads, send invoices, and grow efficiently."
-          feats={growFeats} found={growFound} />
-      </div>
-      <div id="scale">
-        <PackageBlock variant="scale" num="03" badge="Scale Stage · AI" name={"Fully AI-Powered\nBusiness Model"} price="₹12,500" note="One-time + ₹1,000 / month AI service charge"
-          desc="The future of business is AI-driven. Automate customer interactions, capture leads 24/7, and make data-backed decisions — all integrated into your business model."
-          feats={scaleFeats} found={scaleFound} />
-      </div>
 
       {/* CONTACT */}
       <section id="contact" className="text-center px-[5%] py-24 bg-white">
