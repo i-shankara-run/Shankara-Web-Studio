@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -402,46 +402,40 @@ body {
   .hero-wrap{ padding: 6rem 5% 3rem; }
 }
 .hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  gap: 2.5rem;
 }
 @media(max-width:1024px){
   .hero-inner{ gap:2rem; }
 }
-@media(max-width:900px){
-  .hero-inner{ grid-template-columns:1fr; gap:2.5rem; }
-}
 @media(max-width:640px){
   .hero-inner{ gap:1.5rem; }
 }
-.hero-content { position: relative; z-index: 10; }
+.hero-inner > .eyebrow { align-self: flex-start; }
+.hero-content {
+  position: relative; z-index: 10;
+  text-align: center;
+  width: 100%;
+}
 .hero-media {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .hero-media video {
   width: 100%;
-  max-width: 480px;
+  max-width: 65%;
   height: auto;
   border-radius: 12px;
 }
-@media(max-width:1024px){
-  .hero-media video { max-width: 400px; }
-}
 @media(max-width:900px){
-  .hero-media video { max-width: 420px; }
-}
-@media(max-width:640px){
-  .hero-media video { max-width: 340px; }
-}
-@media(max-width:480px){
-  .hero-media video { max-width: 280px; }
+  .hero-media video { max-width: 100%; }
 }
 .eyebrow {
   display:inline-flex; align-items:center; gap:10px;
@@ -459,7 +453,7 @@ body {
 .hero-body {
   font-size: clamp(.95rem, 1.4vw, 1.08rem);
   font-weight:400; color: rgba(255,255,255,.8); line-height:1.78;
-  max-width:500px; margin-bottom:2.4rem;
+  max-width:500px; margin-left:auto; margin-right:auto; margin-bottom:2.4rem;
 }
 .pill {
   font-size:.76rem; font-weight:400; color: rgba(255,255,255,.75);
