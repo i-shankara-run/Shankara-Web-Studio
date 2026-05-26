@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/logo.png";
+import logoOnBlue from "@/assets/logo-on-blue.png";
+import logoOnWhite from "@/assets/logo-on-white.png";
+import wordmark from "@/assets/wordmark.png";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -11,14 +13,33 @@ export function Nav() {
   }, []);
   return (
     <nav className={`nav-shell ${scrolled ? "scrolled" : ""}`}>
-      <a href="#top" className="flex items-center gap-2.5 no-underline">
-        <img src={logo} alt="Shankara" className="nav-brand-logo w-11 h-7 object-contain" />
-        <span className="nav-brand font-heading text-xl font-semibold tracking-wide">Shankara</span>
+      <a href="#top" className="nav-brand-link">
+        {/* Eye logo — color-matched to nav background so the square blends in and only the eye reads. */}
+        <img src={logoOnBlue} alt="Shankara" className="nav-brand-eye nav-brand-eye--top" />
+        <img
+          src={logoOnWhite}
+          alt=""
+          aria-hidden="true"
+          className="nav-brand-eye nav-brand-eye--scrolled"
+        />
+        <img src={wordmark} alt="Shankara · run" className="nav-brand-wordmark" />
       </a>
       <ul className="flex items-center gap-9 list-none m-0 p-0">
-        <li className="hidden md:block"><a href="#process" className="nav-link">Process</a></li>
-        <li className="hidden md:block"><a href="#packages" className="nav-link">Packages</a></li>
-        <li><a href="#contact" className="nav-link nav-pill">Ask Shankara</a></li>
+        <li className="hidden md:block">
+          <a href="#process" className="nav-link">
+            Process
+          </a>
+        </li>
+        <li className="hidden md:block">
+          <a href="#packages" className="nav-link">
+            Packages
+          </a>
+        </li>
+        <li>
+          <a href="#contact" className="nav-link nav-pill">
+            Ask Shankara
+          </a>
+        </li>
       </ul>
     </nav>
   );

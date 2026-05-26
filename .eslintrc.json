@@ -1,0 +1,4 @@
+{
+  "extends": "next/core-web-vitals",
+  "ignorePatterns": ["_old_tanstack/**", "src/**", "node_modules/**", ".next/**"]
+}

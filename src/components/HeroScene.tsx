@@ -47,7 +47,13 @@ function Diamond() {
   return (
     <mesh ref={ref} position={[2.2, 0.6, 0.5]} scale={0.35}>
       <octahedronGeometry args={[1, 0]} />
-      <meshStandardMaterial color="#ffffff" emissive="#3e6e9e" emissiveIntensity={0.4} roughness={0.1} metalness={0.9} />
+      <meshStandardMaterial
+        color="#ffffff"
+        emissive="#3e6e9e"
+        emissiveIntensity={0.4}
+        roughness={0.1}
+        metalness={0.9}
+      />
     </mesh>
   );
 }

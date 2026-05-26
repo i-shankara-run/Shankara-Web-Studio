@@ -9,38 +9,122 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as LeadsCreateRouteImport } from './routes/leads/create'
+import { Route as DemoConfirmationRouteImport } from './routes/demo/confirmation'
+import { Route as DashboardLoginRouteImport } from './routes/dashboard/login'
+import { Route as DashboardLeadIdRouteImport } from './routes/dashboard/$leadId'
 
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const LeadsCreateRoute = LeadsCreateRouteImport.update({
+  id: '/leads/create',
+  path: '/leads/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoConfirmationRoute = DemoConfirmationRouteImport.update({
+  id: '/demo/confirmation',
+  path: '/demo/confirmation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardLoginRoute = DashboardLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardLeadIdRoute = DashboardLeadIdRouteImport.update({
+  id: '/$leadId',
+  path: '/$leadId',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/$leadId': typeof DashboardLeadIdRoute
+  '/dashboard/login': typeof DashboardLoginRoute
+  '/demo/confirmation': typeof DemoConfirmationRoute
+  '/leads/create': typeof LeadsCreateRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/$leadId': typeof DashboardLeadIdRoute
+  '/dashboard/login': typeof DashboardLoginRoute
+  '/demo/confirmation': typeof DemoConfirmationRoute
+  '/leads/create': typeof LeadsCreateRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/$leadId': typeof DashboardLeadIdRoute
+  '/dashboard/login': typeof DashboardLoginRoute
+  '/demo/confirmation': typeof DemoConfirmationRoute
+  '/leads/create': typeof LeadsCreateRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/$leadId'
+    | '/dashboard/login'
+    | '/demo/confirmation'
+    | '/leads/create'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard/$leadId'
+    | '/dashboard/login'
+    | '/demo/confirmation'
+    | '/leads/create'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/dashboard/$leadId'
+    | '/dashboard/login'
+    | '/demo/confirmation'
+    | '/leads/create'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  DemoConfirmationRoute: typeof DemoConfirmationRoute
+  LeadsCreateRoute: typeof LeadsCreateRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +132,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/leads/create': {
+      id: '/leads/create'
+      path: '/leads/create'
+      fullPath: '/leads/create'
+      preLoaderRoute: typeof LeadsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/confirmation': {
+      id: '/demo/confirmation'
+      path: '/demo/confirmation'
+      fullPath: '/demo/confirmation'
+      preLoaderRoute: typeof DemoConfirmationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/login': {
+      id: '/dashboard/login'
+      path: '/login'
+      fullPath: '/dashboard/login'
+      preLoaderRoute: typeof DashboardLoginRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/$leadId': {
+      id: '/dashboard/$leadId'
+      path: '/$leadId'
+      fullPath: '/dashboard/$leadId'
+      preLoaderRoute: typeof DashboardLeadIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardLeadIdRoute: typeof DashboardLeadIdRoute
+  DashboardLoginRoute: typeof DashboardLoginRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardLeadIdRoute: DashboardLeadIdRoute,
+  DashboardLoginRoute: DashboardLoginRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  DemoConfirmationRoute: DemoConfirmationRoute,
+  LeadsCreateRoute: LeadsCreateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,38 @@
+# Don't ship local junk into the build context — keeps Docker fast and the
+# image small. Mirrors .gitignore plus a few build-only carve-outs.
+
+# Dependencies + build output (Docker rebuilds these inside the image)
+node_modules
+.next
+out
+build
+dist
+
+# Local-only / harness state
+.claude
+.vercel
+.git
+.gitignore
+.dockerignore
+
+# Snapshot of the previous TanStack codebase — not part of the build
+_old_tanstack
+
+# Local env files — Coolify injects production values at runtime
+.env
+.env*.local
+
+# OS / IDE noise
+.DS_Store
+.idea
+.vscode
+*.log
+*.pem
+
+# Markdown / docs that don't affect runtime
+README.md
+opencode.md
+ONBOARDING.md
+
+# TS / build artifacts not needed in the image
+*.tsbuildinfo
